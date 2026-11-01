@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drywall Sheet Calculator & Materials Estimator | 4x8 & 4x12 Sheets</title>
+  <meta name="description" content="Calculate how many drywall sheets (4x8 or 4x12) you need for walls or ceilings. Includes studs (16 in OC), joint compound mud buckets, screws, tape, and Home Depot shopping list.">
+  <meta name="keywords" content="drywall calculator square feet, how many sheets of drywall do i need, sheetrock calculator 4x8, drywall mud calculator, drywall screw calculator">
+  <link rel="canonical" href="https://sebiglesias.com.ar/drywall-calculator/">
+  <meta name="theme-color" content="#18181b">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Drywall Sheet Calculator & Materials Estimator">
+  <meta property="og:description" content="Calculate exact drywall panels, joint compound mud, screws, and studs for your renovation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sebiglesias.com.ar/drywall-calculator/">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Icons & PWA -->
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Google tag (gtag.js) GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BNDBQP0W7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2BNDBQP0W7');
+  </script>
+
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-3381238987477190">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3381238987477190" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Drywall Sheet & Materials Calculator",
+        "url": "https://sebiglesias.com.ar/drywall-calculator/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "description": "Calculates drywall sheets (4x8 and 4x12), joint compound mud, drywall screws, studs at 16-inch on-center, and tape with waste factor.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How many square feet are in a 4x8 sheet of drywall?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A standard 4x8 foot drywall sheet covers exactly 32 square feet. A larger 4x12 foot sheet covers 48 square feet."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much joint compound (mud) do I need per sheet of drywall?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Rule of thumb: You need approximately 1 gallon of joint compound per 100 square feet of drywall (or one standard 4.5-gallon bucket for every 14 sheets of 4x8 drywall)."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <div class="backlink-bar">
+      <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+    </div>
+
+    <header class="header">
+      <div class="header-badge">🔨 Home Renovation & Drywall Utility</div>
+      <h1>Drywall Calculator<span class="accent">.</span></h1>
+      <p class="sub">Calculate 4x8 sheets, joint compound mud, studs & screws</p>
+    </header>
+
+    <!-- Project Mode Tabs -->
+    <div class="tabs-nav" role="tablist">
+      <button type="button" class="tab-btn active" data-mode="partition"><span>🧱</span> Partition Wall (2 Sides)</button>
+      <button type="button" class="tab-btn" data-mode="single"><span>📐</span> Single Wall Face</button>
+      <button type="button" class="tab-btn" data-mode="ceiling"><span>🏠</span> Ceiling</button>
+    </div>
+
+    <!-- Big Results Hero Display -->
+    <section class="card hero-card">
+      <div class="hero-top">
+        <div class="hero-col">
+          <span class="hero-sublabel">Total Surface Area</span>
+          <div class="hero-val-wrap">
+            <span class="hero-number" id="metricArea">208</span>
+            <span class="hero-unit">sq ft</span>
+          </div>
+          <span class="hero-detail">With 10% waste buffer</span>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-col highlight">
+          <span class="hero-sublabel">Drywall Panels to Buy</span>
+          <div class="hero-val-wrap">
+            <span class="hero-number" id="metricSheets">7</span>
+            <span class="hero-unit">sheets</span>
+          </div>
+          <span class="hero-detail" id="metricSheetSize">Standard 4' x 8' (1/2" thick)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inputs Grid -->
+    <div class="inputs-grid">
+      <!-- Dimensions Card -->
+      <section class="card">
+        <h2>1. Dimensions (Feet)</h2>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="inputLength" id="labelLength">Wall Length (Feet)</label>
+            <input type="number" id="inputLength" value="13" min="1" step="0.5">
+          </div>
+          <div class="field-group">
+            <label for="inputHeight" id="labelHeight">Wall Height (Feet)</label>
+            <input type="number" id="inputHeight" value="8" min="1" step="0.5">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="inputOpenings">Doors & Windows Deduction (Sq Ft)</label>
+          <input type="number" id="inputOpenings" value="21" min="0" step="1">
+          <span class="hint">Standard door is ~21 sq ft (3'x7'), window ~15 sq ft</span>
+        </div>
+      </section>
+
+      <!-- Framing & Sheet Specs -->
+      <section class="card">
+        <h2>2. Sheet Size & Framing Specs</h2>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="selectSheetSize">Sheet Dimensions</label>
+            <select id="selectSheetSize">
+              <option value="32" selected>4' x 8' Sheet (32 sq ft — DIY friendly)</option>
+              <option value="48">4' x 12' Sheet (48 sq ft — Pro fewer seams)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="selectStudSpacing">Stud Spacing (On Center)</label>
+            <select id="selectStudSpacing">
+              <option value="16" selected>16" On-Center (Standard)</option>
+              <option value="24">24" On-Center (Commercial/Light)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="selectWaste">Waste Factor</label>
+            <select id="selectWaste">
+              <option value="0.10" selected>10% (Standard cuts)</option>
+              <option value="0.15">15% (Many closets / corners)</option>
+              <option value="0.05">5% (Simple open room)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label for="selectDrywallType">Drywall Type</label>
+            <select id="selectDrywallType">
+              <option value="std" selected>Regular 1/2" (White board)</option>
+              <option value="moisture">Moisture-Resistant (Green board for bathroom)</option>
+              <option value="fire">Firecode 5/8" Type X (Garage / Kitchen)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Complete Shopping Materials List -->
+    <section class="card">
+      <h2>Complete Renovation Shopping List</h2>
+      <p class="section-desc">Quantities ready for checkout at Home Depot or Lowe's:</p>
+
+      <div class="materials-list" id="materialsList">
+        <!-- Injected via JS -->
+      </div>
+
+      <button type="button" class="btn-share" id="btnCopyMaterials" style="margin-top: 1.5rem;">
+        <span>📋</span> Copy Materials Shopping List
+      </button>
+    </section>
+
+    <!-- AdSense Responsive Placement -->
+    <div class="adsense-wrap" style="text-align: center; margin: 2rem 0;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3381238987477190"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="card faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Should I hang drywall horizontally or vertically?</h3>
+        <p>For residential walls with 8-foot or 9-foot ceilings, hanging sheets <strong>horizontally</strong> is recommended by professional tapers. It reduces total linear seam length by about 25% and places the main joint at comfortable waist height for taping and sanding.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What drywall screws should I use?</h3>
+        <p>For 1/2-inch drywall into standard wood studs, use <strong>1-1/4 inch coarse thread drywall screws</strong> spaced every 12 inches on ceilings and 16 inches on walls.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Part of the <a href="https://sebiglesias.com.ar">sebiglesias.com.ar</a> utility tools suite.</p>
+      <p class="copy">Free home improvement utility · Imperial calculations</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

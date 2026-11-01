@@ -1,0 +1,15 @@
+{
+  "name": "Drywall Sheet Calculator",
+  "short_name": "DrywallCalc",
+  "start_url": "/drywall-calculator/",
+  "display": "standalone",
+  "background_color": "#18181b",
+  "theme_color": "#eab308",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
