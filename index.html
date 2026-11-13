@@ -7,6 +7,17 @@
   <meta name="description" content="Calculate how many drywall sheets (4x8 or 4x12) you need for walls or ceilings. Includes studs (16 in OC), joint compound mud buckets, screws, tape, and Home Depot shopping list.">
   <meta name="keywords" content="drywall calculator square feet, how many sheets of drywall do i need, sheetrock calculator 4x8, drywall mud calculator, drywall screw calculator">
   <link rel="canonical" href="https://sebiglesias.com.ar/drywall-calculator/">
+  <link rel="alternate" hreflang="en" href="https://sebiglesias.com.ar/drywall-calculator/">
+  <link rel="alternate" hreflang="es" href="https://sebiglesias.com.ar/drywall-calculator/?lang=es">
+  <link rel="alternate" hreflang="de" href="https://sebiglesias.com.ar/drywall-calculator/?lang=de">
+  <link rel="alternate" hreflang="fr" href="https://sebiglesias.com.ar/drywall-calculator/?lang=fr">
+  <link rel="alternate" hreflang="it" href="https://sebiglesias.com.ar/drywall-calculator/?lang=it">
+  <link rel="alternate" hreflang="pt" href="https://sebiglesias.com.ar/drywall-calculator/?lang=pt">
+  <link rel="alternate" hreflang="nl" href="https://sebiglesias.com.ar/drywall-calculator/?lang=nl">
+  <link rel="alternate" hreflang="sv" href="https://sebiglesias.com.ar/drywall-calculator/?lang=sv">
+  <link rel="alternate" hreflang="da" href="https://sebiglesias.com.ar/drywall-calculator/?lang=da">
+  <link rel="alternate" hreflang="pl" href="https://sebiglesias.com.ar/drywall-calculator/?lang=pl">
+  <link rel="alternate" hreflang="x-default" href="https://sebiglesias.com.ar/drywall-calculator/">
   <meta name="theme-color" content="#18181b">
 
   <!-- Open Graph -->
@@ -83,8 +94,20 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="backlink-bar">
+    <div class="backlink-bar" style="display:flex;align-items:center;justify-content:space-between">
       <a href="https://sebiglesias.com.ar" class="backlink">← sebiglesias.com.ar</a>
+      <select id="lang-select" aria-label="Language" style="background:#24221C;border:1px solid rgba(242,239,230,.18);color:#F2EFE6;font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:3px 6px;border-radius:3px;cursor:pointer;margin-left:auto">
+  <option value="en">🇺🇸 EN</option>
+  <option value="es">🇪🇸 ES</option>
+  <option value="de">🇩🇪 DE</option>
+  <option value="fr">🇫🇷 FR</option>
+  <option value="it">🇮🇹 IT</option>
+  <option value="pt">🇵🇹 PT</option>
+  <option value="nl">🇳🇱 NL</option>
+  <option value="sv">🇸🇪 SV</option>
+  <option value="da">🇩🇰 DA</option>
+  <option value="pl">🇵🇱 PL</option>
+</select>
     </div>
 
     <header class="header">
@@ -337,5 +360,41 @@
   </div>
 
   <script src="app.js"></script>
+
+<script>
+/* I18N_AUTO_ENGINE */
+(function(){
+  const DICT = {"en": {"title": "Drywall Sheet & Materials Calculator<span class='accent'>.</span>", "sub": "4x8 & 4x12 gypsum panels, joint compound buckets, tape & drywall screws"}, "es": {"title": "Calculadora de Placas de Yeso y Durlock<span class='accent'>.</span>", "sub": "Cantidad de paneles, masilla, cinta, tornillos y montantes por habitación"}, "de": {"title": "Trockenbau & Gipskarton Rechner<span class='accent'>.</span>", "sub": "Rigipsplatten, Spachtelmasse, Fugenband, Schrauben & CW/UW-Profile"}, "fr": {"title": "Calculateur Placo & Plaques de Plâtre<span class='accent'>.</span>", "sub": "Nombre de plaques BA13, enduit, bande à joint, vis et rails métalliques"}, "it": {"title": "Calcolatore Cartongesso e Materiali<span class='accent'>.</span>", "sub": "Lastre di cartongesso, stucco, nastro, viti e profili metallici"}, "pt": {"title": "Calculadora de Drywall e Gesso Acartonado<span class='accent'>.</span>", "sub": "Chapas, massa para juntas, fita, parafusos e montantes por ambiente"}, "nl": {"title": "Gipsplaten & Droogbouw Calculator<span class='accent'>.</span>", "sub": "Aantal gipsplaten, voegmiddel, gaasband, schroeven en profielen"}, "sv": {"title": "Gipsskivor & Innervägg Kalkylator<span class='accent'>.</span>", "sub": "Antal gipsplattor, spackel, pappersremsa, gipsskruv och reglar"}, "da": {"title": "Gipsplader & Skillevæg Beregner<span class='accent'>.</span>", "sub": "Beregn antal gipsplader, spartelmasse, papirstrimmel, skruer og stållægter"}, "pl": {"title": "Kalkulator Płyt Gipsowo-Kartonowych (GK)<span class='accent'>.</span>", "sub": "Liczba płyt regips, gładź szpachlowa, taśma, wkręty i profile"}};
+  const h1El = document.querySelector('h1');
+  const subEl = document.querySelector('.sub') || document.querySelector('header p');
+  const selEl = document.getElementById('lang-select');
+  function applyLang(lang) {
+    const entry = DICT[lang] || DICT.en;
+    document.documentElement.lang = lang;
+    if (h1El && entry.title) h1El.innerHTML = entry.title;
+    if (subEl && entry.sub) subEl.textContent = entry.sub;
+    if (lang !== 'en' && entry.sub) {
+      document.title = (h1El ? h1El.textContent : '') + ' — ' + entry.sub;
+    }
+  }
+  const params = new URLSearchParams(window.location.search);
+  const init = params.get('lang') || localStorage.getItem('drywall-calculator-lang') || 'en';
+  const valid = DICT[init] ? init : 'en';
+  if (selEl) {
+    selEl.value = valid;
+    selEl.addEventListener('change', function(e) {
+      const nl = e.target.value;
+      localStorage.setItem('drywall-calculator-lang', nl);
+      const u = new URL(window.location.href);
+      if (nl === 'en') u.searchParams.delete('lang');
+      else u.searchParams.set('lang', nl);
+      window.history.replaceState({}, '', u);
+      applyLang(nl);
+    });
+  }
+  applyLang(valid);
+})();
+</script>
+
 </body>
 </html>
